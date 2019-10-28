@@ -29,7 +29,7 @@
       <li class="nav-hover"><%= link_to "Manage Interests", "/add_tags"  %></li>
     <% end %>
     <div class="farRight nav-hover">
-      <%= link_to opportunities_path %>
+      <%= link_to "My Profile", dashboard_path_url%>
       <li class="logout nav-hover"><%= link_to "Logout", destroy_user_session_path, method: :delete %></li>
     </div>
   <% end %>

@@ -16,11 +16,10 @@
     <% @organizations.each do |organization| %>
       <% if organization.approved? || organization.user == current_user %>
         <tr>
-          <td><%= organization.name %></td>
+          <td><%= link_to organization.name,organization %></td>
           <td><%= organization.city %></td>
           <td><%= organization.state %></td>
           <td><%= organization.issue_area %></td>
-          <td><%= link_to 'View', organization %></td>
 
           <% if session[:user_type] == 0 || (session[:user_type] == 1 && session[:user_email] == organization.email) %>
             <td><%= link_to 'Edit', edit_organization_path(organization) %></td>

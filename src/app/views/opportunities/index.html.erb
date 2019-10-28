@@ -87,7 +87,7 @@
     <% @opportunities.each do |opportunity| %>
       <% if (opportunity.approved || opportunity.organization.user == current_user) && opportunity.on_date >= Date.current %>
         <tr>
-          <td><%= opportunity.name %></td>
+          <td><%= link_to opportunity.name, opportunity %></td>
           <td><%= opportunity.email %></td>
           <td><%= opportunity.city %></td>
           <td><%= opportunity.state %></td>
@@ -95,12 +95,10 @@
           <td><%= opportunity.issue_area %></td>
 
           <% if opportunity.owned_by?(current_user) %>
-            <td><%= link_to 'View', opportunity %></td>
             <td><%= link_to 'Edit', edit_opportunity_path(opportunity) %></td>
             <td><%= link_to 'Delete', opportunity, method: :delete, data: {confirm: 'Are you sure?'} %></td>
           <% end %>
 
-          <td><%= link_to 'View', opportunity %></td>
           <%# if session[:user_type] == 2 %>
 <!--          <td></td>-->
             <%# if !opportunity.in_favorites?(session[:user_email]) %>
