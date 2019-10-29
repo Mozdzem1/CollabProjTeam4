@@ -90,12 +90,12 @@
       <%= @opportunity.frequency %>
     </td>
   </tr>
-    <tr>
-      <td>
-        <strong>Interest Tag:</strong>
-        <%= @opportunity.tag.name unless @opportunity.tag.nil? %>
-      </td>
-    </tr>
+  <tr>
+    <td>
+      <strong>Interest Tag:</strong>
+      <%= @opportunity.tag.name unless @opportunity.tag.nil? %>
+    </td>
+  </tr>
   </tbody>
 
 </table>
@@ -111,5 +111,9 @@
     <div class="styledButton">
       <%= link_to 'Back', :back %>
     </div>
+    <div class="styledButton">
+      <%= link_to 'Sign-Up', :back %>
+    </div>
   </div>
 </div>
+
