@@ -118,4 +118,5 @@ ActiveRecord::Schema.define(version: 2019_09_17_161350) do
   add_foreign_key "opportunities", "tags"
   add_foreign_key "organizations", "users"
   add_foreign_key "users", "tags"
+  add_foreign_key "users", "opportunities"
 end

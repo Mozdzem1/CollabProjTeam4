@@ -111,9 +111,9 @@
     <div class="styledButton">
       <%= link_to 'Back', :back %>
     </div>
-    <div class="styledButton">
-      <%= link_to 'Sign-Up', :back %>
-    </div>
+    <%=form_tag user_path, :method=> "get" do %>
+      <%= submit_tag "Search" %>
+    <%end %>
   </div>
 </div>
 
