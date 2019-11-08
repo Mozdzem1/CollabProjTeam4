@@ -142,26 +142,47 @@
       <div class = "my_profile_left">
         
             <h1>My Profile</h1>
-            <!-- Profile Picture Goes Here-->
+            <!-- Profile Picture Goes Here
         <nav style = "text-align: center;">
-            <img source = "code/app/assets/images/Profile_Default.jpg" alt = "Default_Profile_Pic" width="240" height="240">
+            <img source = "src/app/assets/images/Profile_Default.jpg" alt = "Default_Profile_Pic" width="240" height="240">
         </nav>
-        <div style="text-align: center; width:100%; padding:2rem 0rem 0rem;">
-            <form action="myform.cgi"> 
-              <input type="file" name="fileupload" value="fileupload" id="fileupload" accept="image/png, image/jpeg">
-              <label for="fileupload"></label> 
-            </form>
-            <br>
-            <div class="styledButton">
-              <%= link_to 'Upload New Profile Picture' %>
-            </div>
-        </div>
+        -->
+                
+        <br>
+        <!--
+        
+        <form style="text-align: center; width:100%; padding:2rem 0rem 0rem; " action="myform.cgi">
+                <input type="file" name="fileupload" accept="image/*" >
+                
+        Check 191 here : https://stackoverflow.com/questions/572768/styling-an-input-type-file-button
+                <%= link_to 'Upload' %>
+        </form>
+        
+        -->
+        <form style= "text-align:center;" action="#type your action here" method="POST" enctype="multipart/form-data">
+          <div id="yourBtn" style=" height: 240px; width: 240px; margin:0 auto; border: 1px dashed #BBB; cursor:pointer;" onclick="getFile()">
+            <nav style = "padding: 40% 0 0 0;">Click to upload!</nav>
+          </div>
+          <br>
+          <div class="styledButton">
+              <%= link_to 'Upload' %>
+          </div>
+          
+          <!-- this is your file input tag, so i hide it!>
+          
+          <div style='height: 0px;width:0px; overflow:hidden;'><input id="upfile" type="file" value="upload"/></div>
+          <input type="submit" value='Upload' >
+          
+            <here you can have file submit button or you can write a simple script to upload the file automatically-->
+        </form>
+
         <nav style="text-align: center;">
            <br><td><%= "Email: " + current_user.email %></td>
            <br><td><%= "Name: Insert_Name_Here" %></td>
            <br><td><%= "Address: Insert_Address_Here"%></td>
            <br><td><%= "ID Number: #########"%></td>
         </nav>
+        <br>
       </div>
       <% end %>
       

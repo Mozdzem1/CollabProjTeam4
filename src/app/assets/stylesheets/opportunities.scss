@@ -12,7 +12,7 @@ body{
 .opportunities {
     display: flex;
     width: 96%;
-    //flex-wrap: wrap;
+    flex-wrap: wrap;
     padding: 0 2% 0 2%;
     float: left;
 }
@@ -20,18 +20,18 @@ body{
 .my_profile_left{
     order:  1;
     margin-right: 2%;
-    //max-width: 40rem ;
-    min-width: 40% ;
-    border:1px solid black;
+    max-width: 36%;
+    min-width: 32% ;
+    border:1px solid rgb(71, 192, 179);
 }
 
 .my_profile_right{
     
     order:  2;
-    flex-grow: 1.4;
+    flex-grow: 2;
     box-sizing: border-box;
-    //max-width: 54%;
-    min-width: 54%;
-    text-align: center; 
+    max-width: 66%;
+    min-width: 50%;
+    text-align: center;
     //border:1px solid black;
 }
