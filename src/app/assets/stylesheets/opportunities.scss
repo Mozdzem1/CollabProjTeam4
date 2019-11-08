@@ -3,6 +3,35 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 body{
-// text-align: center;
+    
+    
 }
 
+
+
+.opportunities {
+    display: flex;
+    width: 96%;
+    //flex-wrap: wrap;
+    padding: 0 2% 0 2%;
+    float: left;
+}
+
+.my_profile_left{
+    order:  1;
+    margin-right: 2%;
+    //max-width: 40rem ;
+    min-width: 40% ;
+    border:1px solid black;
+}
+
+.my_profile_right{
+    
+    order:  2;
+    flex-grow: 1.4;
+    box-sizing: border-box;
+    //max-width: 54%;
+    min-width: 54%;
+    text-align: center; 
+    //border:1px solid black;
+}
