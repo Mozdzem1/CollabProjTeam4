@@ -19,6 +19,9 @@ Rails.application.routes.draw do
   # routes the root directory to the homepage
   root 'welcome#welcome'
   get '/dashboard', to: 'organizations#dashboard', as: :dashboard_path
+ 
+  get '/edit_profile', to: 'organizations#edit_profile', as: :edit_profile_path
+
   get '/add_tags', to: 'users#show'
   put '/add_tags/add', to: 'users#add_tags', constraints: { sender: /[^\/]+/ }
 end
