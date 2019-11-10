@@ -70,6 +70,7 @@
       <th>City</th>
       <th>State</th>
       <th>Date</th>
+      <th>Favorite</th>
       <th style="white-space: nowrap;">Issue Area</th>
       <th colspan="2"></th>
       <th style="white-space: nowrap;">
@@ -92,6 +93,31 @@
           <td><%= opportunity.city %></td>
           <td><%= opportunity.state %></td>
           <td style="white-space: nowrap;"><%= opportunity.on_date.strftime('%B %-d, %Y') %></td>
+          
+          <%# if current_user.favorite_opportunities.include?(opportunity) %>
+            <td><%#= link_to 'Remove', favorite_opportunity_path(opportunity), :id => opportunity.id, type: "favorite"), method : :put %></td>
+          <%# else %>
+            <td><%#= link_to 'Add', opportunity, method %></td>
+          <%# end %>
+          
+          <td><%= link_to 'Favorite', favorite_opportunity_path(@opportunity, :id => opportunity.id, type: "favorite"), method: :put %></td>
+              
+          
+          <!--
+          <%# if session[:user_type] == 2 %>
+          <td></td>
+            <%# if !opportunity.in_favorites?(session[:user_email]) %>
+                <td><%#= link_to 'Favorite', favorite_opportunity_path(@opportunity, :id => opportunity.id, type: "favorite"), method: :put %>
+              </td>
+            <%# end %>
+
+            <%# if opportunity.in_favorites?(session[:user_email]) %>
+              <td><%#= link_to 'Unfavorite', favorite_opportunity_path(@opportunity, :id => opportunity.id, type: "unfavorite"), method: :put %></td>
+            <%# end %>
+          <%# end %>
+                -->
+                
+                
           <td><%= opportunity.issue_area %></td>
 
           <% if opportunity.owned_by?(current_user) %>
@@ -99,16 +125,7 @@
             <td><%= link_to 'Delete', opportunity, method: :delete, data: {confirm: 'Are you sure?'} %></td>
           <% end %>
 
-          <%# if session[:user_type] == 2 %>
-<!--          <td></td>-->
-            <%# if !opportunity.in_favorites?(session[:user_email]) %>
-<!--              <td><%#= link_to 'Favorite', favorite_opportunity_path(@opportunity, :id => opportunity.id, type: "favorite"), method: :put %></td>-->
-            <%# end %>
 
-            <%# if opportunity.in_favorites?(session[:user_email]) %>
-<!--              <td><%#= link_to 'Unfavorite', favorite_opportunity_path(@opportunity, :id => opportunity.id, type: "unfavorite"), method: :put %></td>-->
-            <%# end %>
-          <%# end %>
 
         </tr>
       <% end %>

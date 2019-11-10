@@ -178,11 +178,19 @@
 
         <nav style="text-align: center;">
            <br><td><%= "Email: " + current_user.email %></td>
-           <br><td><%= "Name: Insert_Name_Here" %></td>
-           <br><td><%= "Address: Insert_Address_Here"%></td>
+           <br><td><%= "Name: " + current_user.name %></td>
+           <br><td><%= "Address: " + current_user.address %></td>
            <br><td><%= "ID Number: #########"%></td>
         </nav>
+        
+        <div style ="text-align:center; padding: 5% 0 5% 0">
+          <div class="styledButton">
+            <%= link_to 'Edit Profile', edit_profile_path_url %>
+          </div> 
+        </div>
+        
         <br>
+         
       </div>
       <% end %>
       
@@ -268,10 +276,7 @@
           </tbody>
   
         </table>
-	<br><br><br><br><br><br>
-        <div class="styledButton">
-            <%= link_to 'Edit Profile', edit_profile_path_url %>
-        </div>   
+ 
 
  </div>
    

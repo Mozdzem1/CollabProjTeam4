@@ -10,10 +10,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_09_17_161350) do
+ActiveRecord::Schema.define(version: 2019_11_10_203137) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "dashboards", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "favorite_opportunities", force: :cascade do |t|
     t.bigint "user_id"
@@ -104,6 +109,8 @@ ActiveRecord::Schema.define(version: 2019_09_17_161350) do
     t.datetime "updated_at", null: false
     t.integer "tag_id"
     t.boolean "admin", default: false
+    t.string "name", default: "Steve"
+    t.string "address", default: "2000 Pennington Road"
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true

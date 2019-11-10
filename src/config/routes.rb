@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+ resources :users, only: [:edit, :update]
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :issue_areas
   # link-up auth libraries
@@ -18,10 +19,10 @@ Rails.application.routes.draw do
 
   # routes the root directory to the homepage
   root 'welcome#welcome'
-  get '/dashboard', to: 'organizations#dashboard', as: :dashboard_path
+  get '/dashboard', to: 'dashboards#index', as: :dashboard_path
  
-  get '/edit_profile', to: 'organizations#edit_profile', as: :edit_profile_path
-
+  #get 'users/:id/edit', to: 'users#edit', as: :edit_user
+  patch 'users/:id/edit', to: 'users#update'
   get '/add_tags', to: 'users#show'
   put '/add_tags/add', to: 'users#add_tags', constraints: { sender: /[^\/]+/ }
 end

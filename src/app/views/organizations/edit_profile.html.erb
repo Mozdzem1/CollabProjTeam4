@@ -139,54 +139,66 @@
   
   <!--My_Profile page starts here - User view-->
       <% if user_signed_in?  %>
-      <div style = "position: absolute; left: 40%">
-        
+        <div class = "opportunities">
+          <div class = "edit_my_profile">
+          
             <h1>My Profile</h1>
             <!-- Profile Picture Goes Here
-        <nav style = "text-align: center;">
-            <img source = "src/app/assets/images/Profile_Default.jpg" alt = "Default_Profile_Pic" width="240" height="240">
-        </nav>
-        -->
-                
-        <br>
-        <!--
-        
-        <form style="text-align: center; width:100%; padding:2rem 0rem 0rem; " action="myform.cgi">
-                <input type="file" name="fileupload" accept="image/*" >
-                
-        Check 191 here : https://stackoverflow.com/questions/572768/styling-an-input-type-file-button
-                <%= link_to 'Upload' %>
-        </form>
-        
-        -->
-        <form style= "text-align:center;" action="#type your action here" method="POST" enctype="multipart/form-data">
-          <div id="yourBtn" style=" height: 240px; width: 240px; margin:0 auto; border: 1px dashed #BBB; cursor:pointer;" onclick="getFile()">
-            <nav style = "padding: 40% 0 0 0;">Click to upload!</nav>
-          </div>
-          <br>
-          <div class="styledButton">
-              <%= link_to 'Upload' %>
-          </div>
-          
-          <!-- this is your file input tag, so i hide it!>
-          
-          <div style='height: 0px;width:0px; overflow:hidden;'><input id="upfile" type="file" value="upload"/></div>
-          <input type="submit" value='Upload' >
-          
-            <here you can have file submit button or you can write a simple script to upload the file automatically-->
-        </form>
+              <nav style = "text-align: center;">
+              <img source = "src/app/assets/images/Profile_Default.jpg" alt = "Default_Profile_Pic" width="240" height="240">
+              </nav>
+              -->
+                  
+            <br>
+            <!--
+            
+            <form style="text-align: center; width:100%; padding:2rem 0rem 0rem; " action="myform.cgi">
+                    <input type="file" name="fileupload" accept="image/*" >
+                    
+            Check 191 here : https://stackoverflow.com/questions/572768/styling-an-input-type-file-button
+                    <%= link_to 'Upload' %>
+            </form>
+            
+            -->
+            <form action="#type your action here" method="POST" enctype="multipart/form-data">
+              <div id="yourBtn" style=" height: 240px; width: 240px; margin:0 auto; border: 1px dashed #BBB; cursor:pointer;" onclick="getFile()">
+                <nav style = "padding: 40% 0 0 0;">Click to upload!</nav>
+              </div>
+              
+              <br>
+              
+              <div class="edit_my_profile_button">
+                  <%= link_to 'Upload' %>
+              </div>
+              
+              <!-- this is your file input tag, so i hide it!>
+              
+              <div style='height: 0px;width:0px; overflow:hidden;'><input id="upfile" type="file" value="upload"/></div>
+              <input type="submit" value='Upload' >
+              
+                <here you can have file submit button or you can write a simple script to upload the file automatically-->
+            </form>
+  
+            <div class = "edit_box">
+               <br><td><%= "Email: " + current_user.email %></td>
+               <br>
+               
+    		      <%= form_for :user do |f| %>
+                <%= f.text_field :name %>
+                  <%= f.submit %>
+              <% end %>
 
-        <nav style="text-align: center;">
-           <br><td><%= "Email: " + current_user.email %></td>
-           <br><form> 
-		Name <input type = "text" name = "name" placeholder = "Name"> <br>
-		Address <input type = "text" name = "Address" placeholder = "Address" </form>
-           <br><td><%= "ID Number: #########"%></td>
-        </nav>
-        <br>
-	<div class="styledButton">
-            <%= link_to 'Save Changes', dashboard_path_url %>
+    		      
+               <br><td><%= "ID Number: #########"%></td>
+               
+            </div>
+        
+          <br>
+        	<div class="styledButton">
+        	  
+              <%= link_to 'Save Changes', dashboard_path_url %>
           </div>
+        </div>
       </div>
       <% end %> 
 

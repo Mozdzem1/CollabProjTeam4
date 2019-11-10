@@ -22,9 +22,9 @@ class User < ApplicationRecord
 
   validates :email, presence: true, length: { maximum: 255 },
                     format: { with: VALID_EMAIL_REGEX },
-                    uniqueness: { case_sensitive: false }
+                    uniqueness: { case_sensitive: false }, allow_blank: true
 
-  validates :password, presence: true, length: { minimum: 6 }
+  validates :password, presence: true, length: { minimum: 6 }, allow_blank: true
   # has_one :organizations, dependent: :destroy
 
   # FIXME Broken association
@@ -39,11 +39,10 @@ class User < ApplicationRecord
   has_many :favorite_organizations, dependent: :destroy
 
   def favorite_opportunities
-    puts("#############################################\n\n\n\n\n")
-    puts("Please do not use favorite_opportunities. It's a temporary bandaid")
-    puts("\n\n\n\n\n###########################################")
+   
     self[:favorite_opportunities]
   end
+  
 
   def favorite_organizations
     puts("#############################################\n\n\n\n\n")
@@ -59,7 +58,7 @@ class User < ApplicationRecord
   def favorited_organizations
     FavoriteOrganization.where(user: self).map(&:organization)
   end
-
+  
   def approved_org?
     !organization.nil? && organization.approved?
   end
@@ -71,4 +70,7 @@ class User < ApplicationRecord
   def org?
     !organization.nil?
   end
+  
+  
+  
 end

@@ -19,10 +19,10 @@ class OpportunitiesController < ApplicationController
     type = params[:type]
 
     if type == 'favorite'
-      current_user.favorites << @opportunity
+      current_user.favorite_opportunities << @opportunity
       redirect_to :back, notice: 'You favorited ' + @opportunity.name
     elsif type == 'unfavorite'
-      current_user.favorites.delete(@opportunity)
+      current_user.favorite_opportunities.delete(@opportunity)
       redirect_to :back, notice: 'Unfavorited ' + @opportunity.name
     else
       redirect_to :back, notice: 'Nothing happened.'
@@ -51,7 +51,9 @@ class OpportunitiesController < ApplicationController
   # Paramters: none
   # Pre-Condition: the user clicks on a view button for one of the events
   # Post-Condition: user is redirected to a page with all of the selected events information
-  def show; end
+  def show
+    @opportunity = Opportunity.find params[:id]
+  end
 
   # GET /opportunities/new
   # Function: new
@@ -59,7 +61,7 @@ class OpportunitiesController < ApplicationController
   # Pre-Condition: user selects new opportunity
   # Post-Condition: will render a page for the user to create a new opportunity
   def new
-    @opportunity = Opportunity.new
+    @opportunity = Opportunity.new opportunity_params
   end
 
   # GET /opportunities/1/edit
