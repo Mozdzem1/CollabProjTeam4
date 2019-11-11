@@ -3,6 +3,70 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 body{
-// text-align: center;
+    
+    
 }
 
+
+
+.opportunities {
+    display: flex;
+    width: 96%;
+    flex-wrap: wrap;
+    padding: 0 2% 0 2%;
+    float: left;
+}
+
+.my_profile_left{
+    order:  1;
+    margin-right: 2%;
+    width: 32%;
+    min-width: 250px;
+    border:1px solid rgb(71, 192, 179);
+}
+
+.my_profile_right{
+    
+    order:  2;
+    flex-grow: 2;
+    box-sizing: border-box;
+    max-width: 66%;
+    min-width: 50%;
+    text-align: center; 
+    //border:1px solid black;
+}
+
+.edit_info{
+    width: 100%;
+    text-align:center;
+}
+.form_area{
+    width: 60%;
+    height: 20%;
+    font-size:24px;
+    white-space:pre-wrap;
+}
+.form_field{
+    width: 60%;
+    height: 10%;
+    font-size:18px;
+    white-space:pre-wrap;
+}
+
+.form_label{
+    font-size:30px;
+}
+
+.saveButton input[type="submit"] {
+  height: 40px;
+  font-size: 13px;
+  background-color: #f55e55;
+  border: none;
+  color: #fff;
+}
+
+.edit_box{
+    padding: 1% 0 0 0;
+    // border:1px solid rgb(71, 192, 179);
+    
+}

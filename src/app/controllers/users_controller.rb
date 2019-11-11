@@ -80,10 +80,36 @@ class UsersController < ApplicationController
     end
   end
 
-  private
+  def edit
+    @user = User.find(params[:id])
+  end
 
+  def update
+    @user = User.find(params[:id])
+    @user.update(user_params)
+     redirect_to :dashboard_path
+  end
+
+  #@user.user_img.attach(params[:user_img])
+  
+  
+  #private
+=begin
+  def add_favorite
+    @user = current_user
+    @user.favorite_opportunities.create(opportunity_id)
+    @user.update()
+      redirect_to :opportunity_path
+  end
+  
+  def remove_favorite
+    @user = current_user
+    @user.update()
+      redirect_to :opportunity_path
+  end
+=end  
+  
   def user_params
-    params.require(:user).permit(:email, :password,
-                                 :password_confirmation, :user_type, :tag)
+    params.require(:user).permit(:email, :password, :password_confirmation, :fav_event, :user_type, :tag, :name, :address, :img)
   end
 end

@@ -18,51 +18,60 @@
         </p>
       <% end %>
     </div>
+
+  
+  <!--THE PART I MOVED INTO THE LOOP-->
+
+
+  <table>
+    <h1>Pending Events</h1> #I add this part up
+    
+    
+    <thead>
+    <tr>
+      <th style="white-space: nowrap;">Name</th>
+      <th>Email</th>
+      <th>City</th>
+      <th>State</th>
+      <th style="white-space: nowrap;">Zip Code</th>
+      <th style="white-space: nowrap;">Issue Area</th>
+      <th>Approved?</th>
+      <th colspan="3"></th>
+    </tr>
+    </thead>
+  
+    <tbody>
+    <% @organizations.each do |organization| %>
+      <% if current_user.approved_org? %>
+        <tr class="approved">
+      <% else %>
+        <tr class="unapproved">
+      <% end %>
+  
+      <td><%= organization.name %></td>
+      <td><%= organization.email %></td>
+      <td><%= organization.city %></td>
+      <td><%= organization.state %></td>
+      <td><%= organization.zip_code %></td>
+      <td><%= organization.issue_area %></td>
+      <% if current_user.approved_org? %>
+        <td>Yes</td>
+      <% else %>
+        <td>No</td>
+      <% end %>
+  
+      <td><%= link_to 'View', organization %></td>
+      <td><%= link_to 'Edit', edit_organization_path(organization) %></td>
+      <td><%= link_to 'Delete', organization, method: :delete, data: {confirm: 'Are you sure?'} %></td>
+  
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
+</div>
 <% end %>
 
-<table>
-  <thead>
-  <tr>
-    <th style="white-space: nowrap;">Name</th>
-    <th>Email</th>
-    <th>City</th>
-    <th>State</th>
-    <th style="white-space: nowrap;">Zip Code</th>
-    <th style="white-space: nowrap;">Issue Area</th>
-    <th>Approved?</th>
-    <th colspan="3"></th>
-  </tr>
-  </thead>
 
-  <tbody>
-  <% @organizations.each do |organization| %>
-    <% if current_user.approved_org? %>
-      <tr class="approved">
-    <% else %>
-      <tr class="unapproved">
-    <% end %>
-
-    <td><%= organization.name %></td>
-    <td><%= organization.email %></td>
-    <td><%= organization.city %></td>
-    <td><%= organization.state %></td>
-    <td><%= organization.zip_code %></td>
-    <td><%= organization.issue_area %></td>
-    <% if current_user.approved_org? %>
-      <td>Yes</td>
-    <% else %>
-      <td>No</td>
-    <% end %>
-
-    <td><%= link_to 'View', organization %></td>
-    <td><%= link_to 'Edit', edit_organization_path(organization) %></td>
-    <td><%= link_to 'Delete', organization, method: :delete, data: {confirm: 'Are you sure?'} %></td>
-
-    </tr>
-  <% end %>
-  </tbody>
-</table>
-</div>
 <div class="opportunities">
   <% if current_user.org? %>
     <h1>Your Events</h1>
@@ -127,47 +136,149 @@
     <p class="container">Note: All expired events (with dates shown in <span style="color: red;">red</span>)
       will not be visible to the public, even if approved.</p>
   <% else %>
-    <div class="opportunities">
-      <h1>Your Favorites</h1>
+  
+  <!--My_Profile page starts here - User view-->
+      <% if user_signed_in?  %>
+      <div class = "my_profile_left">
+        
+            <h1>My Profile</h1>
+            <!-- Profile Picture Goes Here
+        <nav style = "text-align: center;">
+            <img source = "src/app/assets/images/Profile_Default.jpg" alt = "Default_Profile_Pic" width="240" height="240">
+        </nav>
+        -->
+                
+        <br>
+        <!--
+        
+        <form style="text-align: center; width:100%; padding:2rem 0rem 0rem; " action="myform.cgi">
+                <input type="file" name="fileupload" accept="image/*" >
+                
+        Check 191 here : https://stackoverflow.com/questions/572768/styling-an-input-type-file-button
+                <%= link_to 'Upload' %>
+        </form>
+        
+        -->
+        <form style= "text-align:center;" action="#type your action here" method="POST" enctype="multipart/form-data">
+          <div id="yourBtn" style=" height: 240px; width: 240px; margin:0 auto; border: 1px dashed #BBB; cursor:pointer;" onclick="getFile()">
+            <nav style = "padding: 40% 0 0 0;">Click to upload!</nav>
+          </div>
+          <br>
+          <div class="styledButton">
+              <%= link_to 'Upload' %>
+          </div>
+          
+          <!-- this is your file input tag, so i hide it!>
+          
+          <div style='height: 0px;width:0px; overflow:hidden;'><input id="upfile" type="file" value="upload"/></div>
+          <input type="submit" value='Upload' >
+          
+            <here you can have file submit button or you can write a simple script to upload the file automatically-->
+        </form>
 
-      <table>
-        <thead>
-        <tr>
-          <th style="white-space: nowrap;">Event Name</th>
-          <th>Organization</th>
-          <th>City</th>
-          <th>State</th>
-          <th>Date</th>
-          <th style="white-space: nowrap;">Issue Area</th>
-          <th colspan="3"></th>
-
-        </tr>
-        </thead>
-
-        <tbody>
-        <% @favorites.each do |favorite| %>
-
+        <nav style="text-align: center;">
+           <br><td><%= "Email: " + current_user.email %></td>
+           <br><td><%= "Name: " + current_user.name %></td>
+           <br><td><%= "Address: " + current_user.address %></td>
+           <br><td><%= "ID Number: #########"%></td>
+        </nav>
+        
+        <div style ="text-align:center; padding: 5% 0 5% 0">
+          <div class="styledButton">
+            <%= link_to 'Edit Profile', edit_profile_path_url %>
+          </div> 
+        </div>
+        
+        <br>
+         
+      </div>
+      <% end %>
+      
+      
+      <div class = "my_profile_right">
+        <h1>Favorite Organizations</h1>
+  
+        <table>
+          <thead>
           <tr>
-            <% opportunity = favorite %>
-
-            <td><%= opportunity.name %></td>
-            <td><%= opportunity.organization.name %></td>
-            <td><%= opportunity.city %></td>
-            <td><%= opportunity.state %></td>
-            <td style="white-space: nowrap;"><%= opportunity.on_date.strftime('%B %-d, %Y') %></td>
-            <td><%= opportunity.issue_area %></td>
-
-            <td><%= link_to 'View', opportunity %></td>
-<!--            FIXME: correct link-->
-            <td>Unfavorite (in repair)<%#= link_to 'Unfavorite', favorite_opportunity_path(@opportunity, :id => opportunity.id, type: "unfavorite"), method: :put %></td>
-
+            <th style="white-space: nowrap;">Event Name</th>
+            <th>Organization</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Date</th>
+            <th style="white-space: nowrap;">Issue Area</th>
+            <th colspan="3"></th>
+  
           </tr>
+          </thead>
+  
+          <tbody>
+          <% @favorites.each do |favorite| %>
+  
+            <tr>
+              <% opportunity = favorite %>
+  
+              <td><%= opportunity.name %></td>
+              <td><%= opportunity.organization.name %></td>
+              <td><%= opportunity.city %></td>
+              <td><%= opportunity.state %></td>
+              <td style="white-space: nowrap;"><%= opportunity.on_date.strftime('%B %-d, %Y') %></td>
+              <td><%= opportunity.issue_area %></td>
+  
+              <td><%= link_to 'View', opportunity %></td>
+  <!--            FIXME: correct link-->
+              <td>Unfavorite (in repair)<%#= link_to 'Unfavorite', favorite_opportunity_path(@opportunity, :id => opportunity.id, type: "unfavorite"), method: :put %></td>
+  
+            </tr>
+  
+  
+          <% end %>
+          </table>
+          <br>
+          <br>
+          <h1>Favorite Events</h1>
+  
+        <table>
+          <thead>
+          <tr>
+            <th style="white-space: nowrap;">Event Name</th>
+            <th>Organization</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Date</th>
+            <th style="white-space: nowrap;">Issue Area</th>
+            <th colspan="3"></th>
+  
+          </tr>
+          </thead>
+  
+          <tbody>
+          <% @favorites.each do |favorite| %>
+  
+            <tr>
+              <% opportunity = favorite %>
+  
+              <td><%= opportunity.name %></td>
+              <td><%= opportunity.organization.name %></td>
+              <td><%= opportunity.city %></td>
+              <td><%= opportunity.state %></td>
+              <td style="white-space: nowrap;"><%= opportunity.on_date.strftime('%B %-d, %Y') %></td>
+              <td><%= opportunity.issue_area %></td>
+  
+              <td><%= link_to 'View', opportunity %></td>
+  <!--            FIXME: correct link-->
+              <td>Unfavorite (in repair)<%#= link_to 'Unfavorite', favorite_opportunity_path(@opportunity, :id => opportunity.id, type: "unfavorite"), method: :put %></td>
+  
+            </tr>
+  
+  
+          <% end %>
+          </tbody>
+  
+        </table>
+ 
 
+ </div>
+   
 
-        <% end %>
-        </tbody>
-
-      </table>
-
-    </div>
   <% end %>

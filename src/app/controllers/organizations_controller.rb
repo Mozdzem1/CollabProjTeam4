@@ -10,6 +10,8 @@
 # Description: this file is the controller class for the organization view page and all associated
 # interactions
 class OrganizationsController < ApplicationController
+  
+  
   before_action :set_organization, only: %i[show edit update destroy]
 
   # GET /organizations
@@ -21,6 +23,7 @@ class OrganizationsController < ApplicationController
   def index
     @organizations = Organization.all
     @organizations = @organizations.sort_by &:name
+    @name = current_user
   end
 
   # GET /organizations/1
@@ -29,7 +32,10 @@ class OrganizationsController < ApplicationController
   # Parameters: none
   # Pre-Condition: the user selects view for some organization in the view
   # Post-Condition: a page with all of the organizataions information will be displayed
-  def show; end
+  def show
+    @name = current_user  
+    @organization = Organization.find(params[:id])
+  end
 
   # Function: dashboard
   # Parameters: none
@@ -92,6 +98,19 @@ class OrganizationsController < ApplicationController
     end
   end
 
+
+  def favorite
+    @organization = Organization.find(params[:id])
+    if current_user.fav_org.empty? or !current_user.fav_org.include? @organization.id.to_s
+      temp = current_user.fav_org << @organization.id
+    else
+      temp = current_user.fav_org - [@organization.id.to_s]
+    end
+      current_user.update_attribute(:fav_org, temp)
+    redirect_back fallback_location: favorite_organization_path
+  end
+
+
   # PATCH/PUT /organizations/1
   # PATCH/PUT /organizations/1.json
   # Function: update
@@ -109,6 +128,7 @@ class OrganizationsController < ApplicationController
       end
     end
   end
+  
 
   # DELETE /organizations/1
   # DELETE /organizations/1.json
@@ -134,4 +154,25 @@ class OrganizationsController < ApplicationController
   def organization_params
     params.require(:organization).permit(:email, :name, :phone_no, :address, :city, :state, :zip_code, :description, :approved, :issue_area)
   end
+
+  def edit_profile
+    if current_user.org?
+      @organizations = Organization.where('email = ?', user_email)
+      @organizations = @organizations.sort_by &:name
+
+      @opportunities = Opportunity.where('email = ?', user_email)
+      @opportunities = @opportunities.sort_by &:on_date
+    elsif false # TODO ADMIN
+      @organizations = Organization.all.sort_by &:name
+
+      @opportunities = Opportunity.all.sort_by &:on_date
+    else # normal user
+      @organizations = Organization.where(approved: true).sort_by(&:name)
+      @opportunities = Opportunity.all
+      @favorites = current_user.favorited_opportunities
+      @favorites = @favorites.sort_by(&:created_at).reverse 
+    end
+  end
+  
+  
 end

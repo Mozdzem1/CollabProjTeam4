@@ -1,4 +1,14 @@
 <html>
+  <% if (@name.fav_org.include? @organization.id.to_s) %>
+       <% temp = "Unfavorite"%>
+    <% else %>
+      <% temp = "Favorite"%>
+    <% end %>  
+    <div style = "text-align: center">
+      <div class="styledButton">
+        <%= link_to temp, favorite_organization_path, method: :put %>
+      </div>
+    </div>
 <table>
   <thead>
   <tr>

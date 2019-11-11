@@ -15,18 +15,33 @@ class OpportunitiesController < ApplicationController
   # Pre-Condition: the user wants to favorite an event
   # Post-Condition: will favorite or unfavorite an event
 
-  def favorite
-    type = params[:type]
 
-    if type == 'favorite'
-      current_user.favorites << @opportunity
-      redirect_to :back, notice: 'You favorited ' + @opportunity.name
-    elsif type == 'unfavorite'
-      current_user.favorites.delete(@opportunity)
-      redirect_to :back, notice: 'Unfavorited ' + @opportunity.name
+
+  def favorite
+    
+    if current_user.fav_event.nil? or !current_user.fav_event.include? @opportunity.id.to_s
+      fav = current_user.fav_event << @opportunity.id
     else
-      redirect_to :back, notice: 'Nothing happened.'
+      fav = current_user.fav_event - [@opportunity.id.to_s]
     end
+      
+      current_user.update_attribute(:fav_event, fav)
+      redirect_back fallback_location: favorite_opportunity_path
+  end
+  
+  def signed_up
+   @opportunity = Opportunity.find(params[:id])
+     if current_user.signed_up.nil? or !current_user.signed_up.include? @opportunity.id.to_s
+      userSign = current_user.signed_up << @opportunity.id
+      orgSign = @opportunity.user_id << current_user.id
+     else
+      userSign = current_user.signed_up - [@opportunity.id.to_s]
+      orgSign = @opportunity.user_id - [current_user.id.to_s]
+    end
+      
+      current_user.update_attribute(:signed_up, userSign)
+      @opportunity.update_attribute(:user_id, orgSign)
+      redirect_back fallback_location: favorite_opportunity_path
   end
 
   # Function: index
@@ -51,7 +66,10 @@ class OpportunitiesController < ApplicationController
   # Paramters: none
   # Pre-Condition: the user clicks on a view button for one of the events
   # Post-Condition: user is redirected to a page with all of the selected events information
-  def show; end
+  def show
+    @opportunity = Opportunity.find params[:id]
+    @user = current_user
+  end
 
   # GET /opportunities/new
   # Function: new
@@ -59,7 +77,7 @@ class OpportunitiesController < ApplicationController
   # Pre-Condition: user selects new opportunity
   # Post-Condition: will render a page for the user to create a new opportunity
   def new
-    @opportunity = Opportunity.new
+    @opportunity = Opportunity.new opportunity_params
   end
 
   # GET /opportunities/1/edit
