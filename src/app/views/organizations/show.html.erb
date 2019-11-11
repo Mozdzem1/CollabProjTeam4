@@ -1,12 +1,14 @@
 <html>
-
- <% if @user.fav_org.empty? or !@user.fav_org.include? @organization.id.to_s %>
- <%      temp = @user.fav_event << @organization.id %>
+  <% if (@name.fav_org.include? @organization.id.to_s) %>
+       <% temp = "Unfavorite"%>
     <% else %>
-       <%temp = @user.fav_event - [@organization.id.to_s] %>
-     <% end %>
-       <% @user.update_attribute(:fav_org, temp) %>
-      
+      <% temp = "Favorite"%>
+    <% end %>  
+    <div style = "text-align: center">
+      <div class="styledButton">
+        <%= link_to temp, favorite_organization_path, method: :put %>
+      </div>
+    </div>
 <table>
   <thead>
   <tr>

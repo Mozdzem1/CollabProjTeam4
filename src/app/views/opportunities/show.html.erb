@@ -1,12 +1,18 @@
 <table>
-
   <thead>
   <tr>
     <th>Name: <%= @opportunity.name %></th>
     <th colspan="3"></th>
     <div style="display:flex; justify-content:flex-end; width:100%; padding:0;">
+      
+    <% if (@user.fav_event.include? @opportunity.id.to_s) %>
+       <% buttonName = "Unfavorite"%>
+    <% else %>
+      <% buttonName = "Favorite"%>
+    <% end %>  
+      
     <div class="styledButton">
-      <%= link_to "Favorite", favorite_opportunity_path, method: :put %>
+      <%= link_to buttonName, favorite_opportunity_path, method: :put %>
     </div>
   </tr>
 
@@ -116,7 +122,15 @@
     <div class="styledButton">
       <%= link_to 'Back', :back %>
       
-      <%= link_to 'Register For Event' %>
+      <% if (@user.signed_up.include? @opportunity.id.to_s) %>
+       <% buttonNameSign = "Unregister"%>
+    <% else %>
+      <% buttonNameSign = "Register"%>
+    <% end %>  
+      
+     <div class="styledButton">
+      <%= link_to buttonNameSign, signed_up_opportunity_path, method: :put %>
+    </div>
       
     </div>
     

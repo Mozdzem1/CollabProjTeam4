@@ -159,9 +159,17 @@
         </form>
         
         -->
-        <form style= "text-align:center;" action="#type your action here" method="POST" enctype="multipart/form-data">
+        <form style= "text-align:center;" action='posts' method="POST" enctype="multipart/form-data">
           <div id="yourBtn" style=" height: 240px; width: 240px; margin:0 auto; border: 1px dashed #BBB; cursor:pointer;">
             <nav style = "padding: 40% 0 0 0;">Click to upload!</nav>
+            
+             <!-- 
+            #if @user.img 
+            <image style = "text-align: center; border: 1px solid black" src ="##(url_for(@user.img))" alt = "Default_Profile_Pic" width="240" height="240">
+             #else 
+             #end  -->
+            
+            
           </div>
           <br>
           <div class="styledButton">
@@ -200,7 +208,7 @@
       
       
       <div class = "my_profile_right">
-        <h1>Favorite Organizations</h1>
+        <h1>Events Attending</h1>
   
         <table>
           <thead>
@@ -217,22 +225,53 @@
           </thead>
   
           <tbody>
-          
-          <% if true %>
-          <% current_user.fav_event.each do |favorite| %>
-             <%  @opportunity = Opportunity.find(favorite) %>
+          <% current_user.signed_up.each do |event| %>
+             <%  @opportunity = Opportunity.find(event) %>
               <tr>
               <td><%= @opportunity.name %></td>
               <td><%= @opportunity.organization.name %></td>
               <td><%= @opportunity.city %></td>
               <td><%= @opportunity.state %></td>
-              <td style="white-space: nowrap;"><%= @opportunity.on_date.strftime('%B %-d, %Y') %></td>
+              <td><%= @opportunity.on_date %></td>
               <td><%= @opportunity.issue_area %></td>
               </tr>
           <% end %>
           
+          </table>
+        
+        
+        <br><br>
+        <h1>Favorite Organizations</h1>
+  
+        <table>
+          <thead>
+          <tr>
+            <th style="white-space: nowrap;">Organization</th>
+            <th>Address</th>
+            <th>City</th>
+            <th>State</th>
+            <th>Email</th>
+            <th style="white-space: nowrap;">Issue Area</th>
+            <th colspan="3"></th>
+  
+          </tr>
+          </thead>
+  
+          <tbody>
+          <% current_user.fav_org.each do |favorite| %>
+             <%  @organization = Organization.find(favorite) %>
+              <tr>
+              <td><%= @organization.name %></td>
+              <td><%= @organization.address %></td>
+              <td><%= @organization.city %></td>
+              <td><%= @organization.state %></td>
+              <td><%= @organization.email %></td>
+              <td><%= @organization.issue_area %></td>
+              </tr>
           <% end %>
           </table>
+          
+          
           <br>
           <br>
           <h1>Favorite Events</h1>

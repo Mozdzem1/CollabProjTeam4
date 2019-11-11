@@ -10,6 +10,8 @@
 # Description: this file is the controller class for the organization view page and all associated
 # interactions
 class OrganizationsController < ApplicationController
+  
+  
   before_action :set_organization, only: %i[show edit update destroy]
 
   # GET /organizations
@@ -32,6 +34,7 @@ class OrganizationsController < ApplicationController
   # Post-Condition: a page with all of the organizataions information will be displayed
   def show
     @name = current_user  
+    @organization = Organization.find(params[:id])
   end
 
   # Function: dashboard
@@ -95,6 +98,19 @@ class OrganizationsController < ApplicationController
     end
   end
 
+
+  def favorite
+    @organization = Organization.find(params[:id])
+    if current_user.fav_org.empty? or !current_user.fav_org.include? @organization.id.to_s
+      temp = current_user.fav_org << @organization.id
+    else
+      temp = current_user.fav_org - [@organization.id.to_s]
+    end
+      current_user.update_attribute(:fav_org, temp)
+    redirect_back fallback_location: favorite_organization_path
+  end
+
+
   # PATCH/PUT /organizations/1
   # PATCH/PUT /organizations/1.json
   # Function: update
@@ -155,14 +171,8 @@ class OrganizationsController < ApplicationController
       @opportunities = Opportunity.all
       @favorites = current_user.favorited_opportunities
       @favorites = @favorites.sort_by(&:created_at).reverse 
+    end
   end
-end
-def favorite
-    if current_user.fav_org.empty? or !current_user.fav_org.include? @organization.id.to_s
-      temp = current_user.fav_event << @organization.id
-    else
-      temp = current_user.fav_event - [@organization.id.to_s]
-    end
-      current_user.update_attribute(:fav_org, temp)
-    end
+  
+  
 end

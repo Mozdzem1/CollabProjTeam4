@@ -20,11 +20,28 @@ class OpportunitiesController < ApplicationController
   def favorite
     
     if current_user.fav_event.nil? or !current_user.fav_event.include? @opportunity.id.to_s
-      temp = current_user.fav_event << @opportunity.id
+      fav = current_user.fav_event << @opportunity.id
     else
-      temp = current_user.fav_event - [@opportunity.id.to_s]
+      fav = current_user.fav_event - [@opportunity.id.to_s]
     end
-      current_user.update_attribute(:fav_event, temp)
+      
+      current_user.update_attribute(:fav_event, fav)
+      redirect_back fallback_location: favorite_opportunity_path
+  end
+  
+  def signed_up
+   @opportunity = Opportunity.find(params[:id])
+     if current_user.signed_up.nil? or !current_user.signed_up.include? @opportunity.id.to_s
+      userSign = current_user.signed_up << @opportunity.id
+      orgSign = @opportunity.user_id << current_user.id
+     else
+      userSign = current_user.signed_up - [@opportunity.id.to_s]
+      orgSign = @opportunity.user_id - [current_user.id.to_s]
+    end
+      
+      current_user.update_attribute(:signed_up, userSign)
+      @opportunity.update_attribute(:user_id, orgSign)
+      redirect_back fallback_location: favorite_opportunity_path
   end
 
   # Function: index

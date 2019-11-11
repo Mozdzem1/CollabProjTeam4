@@ -146,6 +146,7 @@
             <%= f.label 'Address', class: 'form_label' %><br>
             <%= f.text_area :address, class: 'form_area' %><br><br>
 
+            <!-- #f.file_field :img-->
         <div class = "saveButton">
             <%= f.submit "Save Profile" %>
         </div>    
@@ -153,7 +154,6 @@
         <div class = "styledButton">
               <%= link_to 'Back', :dashboard_path %>
         </div>
-      
         <% end %>
       <% end %> 
 

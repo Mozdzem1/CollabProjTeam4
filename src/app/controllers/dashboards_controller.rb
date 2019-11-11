@@ -4,7 +4,14 @@ class DashboardsController < ApplicationController
 
  def new
  end
- 
+
+=begin
+ def img
+     if !@user.img.attached? 
+        @user.img.attach(params[:img])
+    end
+ end
+=end
 
  def edit
  end

@@ -92,37 +92,10 @@
           <td><%= opportunity.city %></td>
           <td><%= opportunity.state %></td>
           <td style="white-space: nowrap;"><%= opportunity.on_date.strftime('%B %-d, %Y') %></td>
+
           
           
-          
-          
-        <% if false %>
-          
-          <% if @user.fav_event.empty? or !@user.fav_event.include? @opportunity.id.to_s %>
-            <td><%= check_box_tag 'favorite', type: "favorite" =%></td>
-            <% temp = @user.fav_event << @opportunity.id %>
-          <% else %>
-            <% temp = @user.fav_event - [@opportunity.id.to_s] %>
-          <% end %>
-          
-          <% @user.update_attribute(:fav_event, temp) %>
-          <%= @user.fav_event %>
-          
-          
-          
-          <% if current_user.favorite_opportunity?(opportunity) %>
-            <td><%= link_to 'Remove',  opportunity_path(:id => opportunity.id, type: "unfavorite"), method: :delete, remote: true %></td>
-          <% else %>
-            <td><%= link_to 'Add', opportunity_path(:id => opportunity.id, type: "favorite"), method: :post, remote: true %></td>
-          <% end %>
-          
-        <% end %>
-          
-          
-       
-          
-          
-          <td><%#= check_box_tag 'Favorite', current_user.favorite_opportunities != nil && current_user.favorite_opportunities.include?(opportunity), class: favorite_opportunities %></td>
+          <%#= check_box_tag 'Favorite', current_user.favorite_opportunities != nil && current_user.favorite_opportunities.include?(opportunity), class: favorite_opportunities %></td>
               
           
           <!--

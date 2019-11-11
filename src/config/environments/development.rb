@@ -52,8 +52,8 @@ Rails.application.configure do
   # routes, locales, etc. This feature depends on the listen gem.
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
 end
+
 Rails.application.config.active_storage.service do
-    
  
   # Store files locally.
   config.active_storage.service = :local

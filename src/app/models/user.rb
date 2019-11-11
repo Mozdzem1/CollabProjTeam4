@@ -39,7 +39,7 @@ class User < ApplicationRecord
   has_many :favorite_organizations, dependent: :destroy
   
   #img
-  #has_one_attached :user_img
+  has_one_attached :img
   
 
   

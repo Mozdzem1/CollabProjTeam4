@@ -12,7 +12,9 @@ end
   devise_for :users
 
   scope format: false do
-    resources :organizations, constraints: { id: /.+/ }
+    resources :organizations, constraints: { id: /.+/ } do
+        put :favorite, on: :member
+    end
   end
   resources :opportunities
 
@@ -20,6 +22,7 @@ end
   # also added methods approve to allow admin users to approve/unapprove ideas
   resources :opportunities do
     put :favorite, on: :member
+    put :signed_up, on: :member
   end
 
   # routes the root directory to the homepage
