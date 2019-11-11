@@ -37,11 +37,11 @@ class User < ApplicationRecord
 
   has_many :favorite_opportunities, dependent: :destroy
   has_many :favorite_organizations, dependent: :destroy
+  
+  #img
+  #has_one_attached :user_img
+  
 
-  def favorite_opportunities
-   
-    self[:favorite_opportunities]
-  end
   
 
   def favorite_organizations
@@ -57,6 +57,10 @@ class User < ApplicationRecord
 
   def favorited_organizations
     FavoriteOrganization.where(user: self).map(&:organization)
+  end
+  
+  def favorite_opportunity?(opportunity)
+    !self.favorite_opportunities.nil? && self.favorite_opportunities.include?(opportunity)
   end
   
   def approved_org?

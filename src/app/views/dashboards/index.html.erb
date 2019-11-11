@@ -160,7 +160,7 @@
         
         -->
         <form style= "text-align:center;" action="#type your action here" method="POST" enctype="multipart/form-data">
-          <div id="yourBtn" style=" height: 240px; width: 240px; margin:0 auto; border: 1px dashed #BBB; cursor:pointer;" onclick="getFile()">
+          <div id="yourBtn" style=" height: 240px; width: 240px; margin:0 auto; border: 1px dashed #BBB; cursor:pointer;">
             <nav style = "padding: 40% 0 0 0;">Click to upload!</nav>
           </div>
           <br>
@@ -217,25 +217,20 @@
           </thead>
   
           <tbody>
-          <% @favorites.each do |favorite| %>
-  
-            <tr>
-              <% opportunity = favorite %>
-  
-              <td><%= opportunity.name %></td>
-              <td><%= opportunity.organization.name %></td>
-              <td><%= opportunity.city %></td>
-              <td><%= opportunity.state %></td>
-              <td style="white-space: nowrap;"><%= opportunity.on_date.strftime('%B %-d, %Y') %></td>
-              <td><%= opportunity.issue_area %></td>
-  
-              <td><%= link_to 'View', opportunity %></td>
-  <!--            FIXME: correct link-->
-              <td>Unfavorite (in repair)<%#= link_to 'Unfavorite', favorite_opportunity_path(@opportunity, :id => opportunity.id, type: "unfavorite"), method: :put %></td>
-  
-            </tr>
-  
-  
+          
+          <% if true %>
+          <% current_user.fav_event.each do |favorite| %>
+             <%  @opportunity = Opportunity.find(favorite) %>
+              <tr>
+              <td><%= @opportunity.name %></td>
+              <td><%= @opportunity.organization.name %></td>
+              <td><%= @opportunity.city %></td>
+              <td><%= @opportunity.state %></td>
+              <td style="white-space: nowrap;"><%= @opportunity.on_date.strftime('%B %-d, %Y') %></td>
+              <td><%= @opportunity.issue_area %></td>
+              </tr>
+          <% end %>
+          
           <% end %>
           </table>
           <br>
@@ -257,25 +252,16 @@
           </thead>
   
           <tbody>
-          <% @favorites.each do |favorite| %>
-  
-            <tr>
-              <% opportunity = favorite %>
-  
-              <td><%= opportunity.name %></td>
-              <td><%= opportunity.organization.name %></td>
-              <td><%= opportunity.city %></td>
-              <td><%= opportunity.state %></td>
-              <td style="white-space: nowrap;"><%= opportunity.on_date.strftime('%B %-d, %Y') %></td>
-              <td><%= opportunity.issue_area %></td>
-  
-              <td><%= link_to 'View', opportunity %></td>
-  <!--            FIXME: correct link-->
-              <td>Unfavorite (in repair)<%#= link_to 'Unfavorite', favorite_opportunity_path(@opportunity, :id => opportunity.id, type: "unfavorite"), method: :put %></td>
-  
-            </tr>
-  
-  
+          <% current_user.fav_event.each do |favorite| %>
+             <%  @opportunity = Opportunity.find(favorite) %>
+              <tr>
+              <td><%= @opportunity.name %></td>
+              <td><%= @opportunity.organization.name %></td>
+              <td><%= @opportunity.city %></td>
+              <td><%= @opportunity.state %></td>
+              <td style="white-space: nowrap;"><%= @opportunity.on_date.strftime('%B %-d, %Y') %></td>
+              <td><%= @opportunity.issue_area %></td>
+              </tr>
           <% end %>
           </tbody>
   

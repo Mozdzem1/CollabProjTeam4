@@ -1,4 +1,12 @@
 <html>
+
+ <% if @user.fav_org.empty? or !@user.fav_org.include? @organization.id.to_s %>
+ <%      temp = @user.fav_event << @organization.id %>
+    <% else %>
+       <%temp = @user.fav_event - [@organization.id.to_s] %>
+     <% end %>
+       <% @user.update_attribute(:fav_org, temp) %>
+      
 <table>
   <thead>
   <tr>

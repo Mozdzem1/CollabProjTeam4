@@ -15,18 +15,16 @@ class OpportunitiesController < ApplicationController
   # Pre-Condition: the user wants to favorite an event
   # Post-Condition: will favorite or unfavorite an event
 
-  def favorite
-    type = params[:type]
 
-    if type == 'favorite'
-      current_user.favorite_opportunities << @opportunity
-      redirect_to :back, notice: 'You favorited ' + @opportunity.name
-    elsif type == 'unfavorite'
-      current_user.favorite_opportunities.delete(@opportunity)
-      redirect_to :back, notice: 'Unfavorited ' + @opportunity.name
+
+  def favorite
+    
+    if current_user.fav_event.nil? or !current_user.fav_event.include? @opportunity.id.to_s
+      temp = current_user.fav_event << @opportunity.id
     else
-      redirect_to :back, notice: 'Nothing happened.'
+      temp = current_user.fav_event - [@opportunity.id.to_s]
     end
+      current_user.update_attribute(:fav_event, temp)
   end
 
   # Function: index
@@ -53,6 +51,7 @@ class OpportunitiesController < ApplicationController
   # Post-Condition: user is redirected to a page with all of the selected events information
   def show
     @opportunity = Opportunity.find params[:id]
+    @user = current_user
   end
 
   # GET /opportunities/new

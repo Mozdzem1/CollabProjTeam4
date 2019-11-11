@@ -10,10 +10,31 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_11_10_203137) do
+ActiveRecord::Schema.define(version: 2019_11_11_033322) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "active_storage_attachments", force: :cascade do |t|
+    t.string "name", null: false
+    t.string "record_type", null: false
+    t.bigint "record_id", null: false
+    t.bigint "blob_id", null: false
+    t.datetime "created_at", null: false
+    t.index ["blob_id"], name: "index_active_storage_attachments_on_blob_id"
+    t.index ["record_type", "record_id", "name", "blob_id"], name: "index_active_storage_attachments_uniqueness", unique: true
+  end
+
+  create_table "active_storage_blobs", force: :cascade do |t|
+    t.string "key", null: false
+    t.string "filename", null: false
+    t.string "content_type"
+    t.text "metadata"
+    t.bigint "byte_size", null: false
+    t.string "checksum", null: false
+    t.datetime "created_at", null: false
+    t.index ["key"], name: "index_active_storage_blobs_on_key", unique: true
+  end
 
   create_table "dashboards", force: :cascade do |t|
     t.datetime "created_at", null: false
@@ -63,6 +84,7 @@ ActiveRecord::Schema.define(version: 2019_11_10_203137) do
     t.time "end_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "user_id", default: [], array: true
     t.index ["issue_area_id"], name: "index_opportunities_on_issue_area_id"
     t.index ["organization_id"], name: "index_opportunities_on_organization_id"
     t.index ["tag_id"], name: "index_opportunities_on_tag_id"
@@ -111,11 +133,15 @@ ActiveRecord::Schema.define(version: 2019_11_10_203137) do
     t.boolean "admin", default: false
     t.string "name", default: "Steve"
     t.string "address", default: "2000 Pennington Road"
+    t.string "fav_event", default: [], array: true
+    t.string "fav_org", default: [], array: true
+    t.string "signed_up", default: [], array: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "favorite_opportunities", "opportunities"
   add_foreign_key "favorite_opportunities", "users"
   add_foreign_key "favorite_organizations", "organizations"

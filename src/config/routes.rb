@@ -1,6 +1,11 @@
 Rails.application.routes.draw do
 
  resources :users, only: [:edit, :update]
+ 
+ resources :posts do
+  put :favorite, on: :member
+end
+ 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :issue_areas
   # link-up auth libraries

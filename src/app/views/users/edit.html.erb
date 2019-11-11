@@ -139,16 +139,22 @@
   
   <!--My_Profile page starts here - User view-->
       <% if user_signed_in?  %>
-        <%= form_for @user do |f| %>
-      <%= f.label 'Name' %><br>
-      <%= f.text_field :name %><br>
-
-      <%= f.label 'Address' %><br>
-      <%= f.text_area :address %><br>
-
-      <%= f.submit "Save Profile" %>
-      <% end %>
+          <%= form_for(@user, :html => { :class => 'edit_info' }) do |f| %>
+            <%= f.label 'Name', class: 'form_label' %><br>
+            <%= f.text_field :name,  class: 'form_field' %><br><br>
       
+            <%= f.label 'Address', class: 'form_label' %><br>
+            <%= f.text_area :address, class: 'form_area' %><br><br>
+
+        <div class = "saveButton">
+            <%= f.submit "Save Profile" %>
+        </div>    
+        <br>
+        <div class = "styledButton">
+              <%= link_to 'Back', :dashboard_path %>
+        </div>
+      
+        <% end %>
       <% end %> 
 
   <% end %>

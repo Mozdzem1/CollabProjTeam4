@@ -1,18 +1,15 @@
 class DashboardsController < ApplicationController
 
- def new
+   #@user.user_img.attach(params[:user_img])
 
+ def new
  end
  
 
  def edit
-      @user = User.find(params[:id])
  end
  
  def update
-     @user = User.find(params[:id])
-     @user.update(name: params[:user][:name], address: params[:user][:address])
-     redirect_to :dashboard_path
  end
 
 

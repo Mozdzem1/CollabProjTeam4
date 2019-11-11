@@ -21,6 +21,7 @@ class OrganizationsController < ApplicationController
   def index
     @organizations = Organization.all
     @organizations = @organizations.sort_by &:name
+    @name = current_user
   end
 
   # GET /organizations/1
@@ -29,7 +30,9 @@ class OrganizationsController < ApplicationController
   # Parameters: none
   # Pre-Condition: the user selects view for some organization in the view
   # Post-Condition: a page with all of the organizataions information will be displayed
-  def show; end
+  def show
+    @name = current_user  
+  end
 
   # Function: dashboard
   # Parameters: none
@@ -109,6 +112,7 @@ class OrganizationsController < ApplicationController
       end
     end
   end
+  
 
   # DELETE /organizations/1
   # DELETE /organizations/1.json
@@ -153,4 +157,12 @@ class OrganizationsController < ApplicationController
       @favorites = @favorites.sort_by(&:created_at).reverse 
   end
 end
+def favorite
+    if current_user.fav_org.empty? or !current_user.fav_org.include? @organization.id.to_s
+      temp = current_user.fav_event << @organization.id
+    else
+      temp = current_user.fav_event - [@organization.id.to_s]
+    end
+      current_user.update_attribute(:fav_org, temp)
+    end
 end
